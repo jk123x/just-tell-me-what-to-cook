@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calm Kitchen - Mockup</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Jost:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg: #faf9f7;
+      --ink: #1a1a18;
+      --ink-light: #8a8885;
+      --ink-faint: #c5c4c2;
+      --accent: #9a9590;
+    }
+
+    body {
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      background: var(--bg);
+      color: var(--ink);
+      min-height: 100dvh;
+      line-height: 1.6;
+      letter-spacing: 0.01em;
+    }
+
+    .page {
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 48px 24px;
+    }
+
+    .hero {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 64px;
+      text-align: center;
+      max-width: 600px;
+    }
+
+    .tagline {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      font-weight: 400;
+      color: var(--ink-light);
+      letter-spacing: 0.15em;
+      text-transform: lowercase;
+    }
+
+    .prompt {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 5vw, 2.8rem);
+      font-weight: 400;
+      font-style: italic;
+      color: var(--ink);
+      line-height: 1.2;
+    }
+
+    .voice-btn {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      border: 1px solid var(--ink);
+      background: transparent;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .voice-btn:hover {
+      background: var(--ink);
+      color: var(--bg);
+    }
+
+    .voice-btn:hover .mic-icon {
+      color: var(--bg);
+    }
+
+    .mic-icon {
+      width: 28px;
+      height: 28px;
+      color: var(--ink);
+      transition: color 0.4s ease;
+    }
+
+    .voice-label {
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: lowercase;
+      opacity: 0.8;
+    }
+
+    .alt-inputs {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      font-size: 0.85rem;
+      letter-spacing: 0.05em;
+    }
+
+    .alt-btn {
+      background: none;
+      border: none;
+      color: var(--ink-light);
+      font-family: inherit;
+      font-weight: 300;
+      font-size: inherit;
+      letter-spacing: inherit;
+      cursor: pointer;
+      padding: 4px 0;
+      border-bottom: 1px solid transparent;
+      transition: all 0.3s ease;
+    }
+
+    .alt-btn:hover {
+      color: var(--ink);
+      border-bottom-color: var(--ink);
+    }
+
+    .alt-divider {
+      color: var(--ink-faint);
+      font-size: 0.75rem;
+    }
+
+    .reassurance {
+      font-size: 0.75rem;
+      color: var(--ink-faint);
+      letter-spacing: 0.05em;
+    }
+
+    /* Results preview */
+    .results-preview {
+      margin-top: 120px;
+      width: 100%;
+      max-width: 500px;
+    }
+
+    .results-label {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.9rem;
+      color: var(--ink-faint);
+      text-align: center;
+      margin-bottom: 48px;
+      letter-spacing: 0.1em;
+    }
+
+    .ingredients-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px 24px;
+      justify-content: center;
+      margin-bottom: 64px;
+    }
+
+    .ingredient {
+      font-size: 0.9rem;
+      color: var(--ink-light);
+      letter-spacing: 0.03em;
+    }
+
+    .ingredient::after {
+      content: '·';
+      margin-left: 24px;
+      color: var(--ink-faint);
+    }
+
+    .ingredient:last-child::after {
+      display: none;
+    }
+
+    .recipe-item {
+      text-align: center;
+      padding: 48px 0;
+      border-top: 1px solid var(--ink-faint);
+    }
+
+    .recipe-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.8rem;
+      font-weight: 400;
+      margin-bottom: 8px;
+    }
+
+    .recipe-meta {
+      font-size: 0.8rem;
+      color: var(--ink-light);
+      letter-spacing: 0.1em;
+      margin-bottom: 16px;
+    }
+
+    .recipe-why {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 1rem;
+      color: var(--ink-light);
+      max-width: 320px;
+      margin: 0 auto;
+    }
+
+    .tap-hint {
+      font-size: 0.7rem;
+      color: var(--ink-faint);
+      letter-spacing: 0.15em;
+      text-transform: lowercase;
+      margin-top: 24px;
+    }
+
+    /* Minimal loading state hint */
+    .loading-hint {
+      margin-top: 80px;
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .loading-dot {
+      width: 4px;
+      height: 4px;
+      background: var(--ink-faint);
+      border-radius: 50%;
+      animation: fade-pulse 1.5s ease infinite;
+    }
+
+    .loading-dot:nth-child(2) { animation-delay: 0.2s; }
+    .loading-dot:nth-child(3) { animation-delay: 0.4s; }
+
+    @keyframes fade-pulse {
+      0%, 100% { opacity: 0.3; }
+      50% { opacity: 1; }
+    }
+
+    @media (min-width: 600px) {
+      .hero {
+        gap: 80px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="hero">
+      <p class="tagline">just tell me what to cook</p>
+
+      <h1 class="prompt">What's in the fridge?</h1>
+
+      <button class="voice-btn">
+        <svg class="mic-icon" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.91-3c-.49 0-.9.36-.98.85C16.52 14.2 14.47 16 12 16s-4.52-1.8-4.93-4.15c-.08-.49-.49-.85-.98-.85-.61 0-1.09.54-1 1.14.49 3 2.89 5.35 5.91 5.78V20c0 .55.45 1 1 1s1-.45 1-1v-2.08c3.02-.43 5.42-2.78 5.91-5.78.1-.6-.39-1.14-1-1.14z"/>
+        </svg>
+        <span class="voice-label">tap to talk</span>
+      </button>
+
+      <div class="alt-inputs">
+        <button class="alt-btn">photo</button>
+        <span class="alt-divider">—</span>
+        <button class="alt-btn">type</button>
+      </div>
+
+      <p class="reassurance">no accounts · photos stay local</p>
+    </div>
+
+    <!-- Results preview -->
+    <div class="results-preview">
+      <p class="results-label">— results —</p>
+
+      <div class="ingredients-list">
+        <span class="ingredient">leftover rice</span>
+        <span class="ingredient">eggs</span>
+        <span class="ingredient">soy sauce</span>
+        <span class="ingredient">frozen peas</span>
+      </div>
+
+      <div class="recipe-item">
+        <h2 class="recipe-title">Fried Rice</h2>
+        <p class="recipe-meta">10 min · one pan</p>
+        <p class="recipe-why">The fridge clean-out classic. Everything in, heat on, done.</p>
+        <p class="tap-hint">tap for steps</p>
+      </div>
+
+      <div class="loading-hint">
+        <span class="loading-dot"></span>
+        <span class="loading-dot"></span>
+        <span class="loading-dot"></span>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

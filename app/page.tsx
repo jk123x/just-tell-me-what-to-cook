@@ -22,10 +22,10 @@ type MealOption = {
 type AppState = "ready" | "recording" | "processing" | "results";
 
 const prompts = [
-  "What's in the fridge?",
+  "What've you got?",
   "Talk me through it",
-  "What are we working with?",
-  "Just say what you've got",
+  "Whatever's around",
+  "No wrong answers",
 ];
 
 const energyOptions: { id: EnergyLevel; label: string; note: string }[] = [
@@ -98,7 +98,7 @@ export default function Home() {
       recorder.start();
       setAppState("recording");
     } catch {
-      setError("Couldn't access the mic. Try the text option?");
+      setError("Mic's being shy. Text works great too!");
       setInputMode(null);
     }
   }
@@ -124,11 +124,11 @@ export default function Home() {
       if (list.length > 0) {
         await generateMeals(list, energy);
       } else {
-        setError("Didn't catch any ingredients. Mind trying again?");
+        setError("Hmm, didn't quite catch that. One more go?");
         setAppState("ready");
       }
     } catch {
-      setError("Something went sideways. Give it another go?");
+      setError("Something hiccuped. Try again when you're ready.");
       setAppState("ready");
     }
   }
@@ -150,11 +150,11 @@ export default function Home() {
       if (list.length > 0) {
         await generateMeals(list, energy);
       } else {
-        setError("Couldn't spot any ingredients. Try a clearer photo?");
+        setError("Tricky angle maybe? A clearer shot might help.");
         setAppState("ready");
       }
     } catch {
-      setError("Photo processing didn't work. Try again?");
+      setError("Photo got a bit lost. One more try?");
       setAppState("ready");
     }
   }
@@ -175,11 +175,11 @@ export default function Home() {
       if (list.length > 0) {
         await generateMeals(list, energy);
       } else {
-        setError("Didn't catch any ingredients there. Try rephrasing?");
+        setError("Hmm, couldn't find ingredients there. Try listing a few things?");
         setAppState("ready");
       }
     } catch {
-      setError("Something went wrong. Try again?");
+      setError("Something slipped. Ready when you are.");
       setAppState("ready");
     }
   }
@@ -196,7 +196,7 @@ export default function Home() {
       setMeals(data.meals ?? []);
       setAppState("results");
     } catch {
-      setError("Meal ideas didn't come through. Hit refresh?");
+      setError("Ideas got stuck. Give it another shot?");
       setAppState("ready");
     }
   }
@@ -228,9 +228,21 @@ export default function Home() {
     setIngredients((curr) => Array.from(new Set([...curr, trimmed])));
   }
 
+  const BotanicalAccent = () => (
+    <svg className="botanical-accent" viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="0.8">
+      <path d="M50 95 Q50 65, 30 45 Q18 32, 22 15" />
+      <path d="M50 95 Q50 60, 62 38 Q72 22, 68 8" />
+      <path d="M50 95 Q56 72, 78 55 Q90 45, 85 32" />
+      <ellipse cx="22" cy="15" rx="10" ry="14" transform="rotate(-25 22 15)" />
+      <ellipse cx="68" cy="8" rx="9" ry="13" transform="rotate(12 68 8)" />
+      <ellipse cx="85" cy="32" rx="11" ry="15" transform="rotate(50 85 32)" />
+    </svg>
+  );
+
   if (appState === "ready") {
     return (
       <main className="centered-main">
+        <BotanicalAccent />
         <div className="voice-hero">
           <p className="tagline">just tell me what to cook</p>
 
@@ -249,7 +261,7 @@ export default function Home() {
                       <path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.91-3c-.49 0-.9.36-.98.85C16.52 14.2 14.47 16 12 16s-4.52-1.8-4.93-4.15c-.08-.49-.49-.85-.98-.85-.61 0-1.09.54-1 1.14.49 3 2.89 5.35 5.91 5.78V20c0 .55.45 1 1 1s1-.45 1-1v-2.08c3.02-.43 5.42-2.78 5.91-5.78.1-.6-.39-1.14-1-1.14z"/>
                     </svg>
                   </span>
-                  <span className="voice-label">Tap to talk</span>
+                  <span className="voice-label">tap to talk</span>
                 </button>
               ) : (
                 <p className="no-mic-note">Your browser doesn't support recording</p>
@@ -300,7 +312,7 @@ export default function Home() {
             <div className="input-panel">
               <textarea
                 rows={3}
-                placeholder="e.g. leftover schnitzel, rice, some sauces, cans of tuna, chopped tomatoes, cheddar"
+                placeholder="e.g. some rice, couple eggs, bit of cheese, whatever sauce is in the door..."
                 value={textInput}
                 onChange={(e) => setTextInput(e.target.value)}
                 autoFocus
@@ -327,8 +339,9 @@ export default function Home() {
   if (appState === "recording") {
     return (
       <main className="centered-main">
+        <BotanicalAccent />
         <div className="voice-hero">
-          <p className="tagline">listening...</p>
+          <p className="tagline">I'm listening...</p>
 
           <button className="voice-button recording" onClick={stopRecording}>
             <span className="pulse-ring" />
@@ -341,7 +354,7 @@ export default function Home() {
             <span className="voice-label">Tap when done</span>
           </button>
 
-          <p className="recording-hint">Just list what you've got</p>
+          <p className="recording-hint">Just ramble, I'll figure it out</p>
         </div>
       </main>
     );
@@ -350,12 +363,13 @@ export default function Home() {
   if (appState === "processing") {
     return (
       <main className="centered-main">
+        <BotanicalAccent />
         <div className="voice-hero">
-          <p className="tagline">working on it...</p>
+          <p className="tagline">on it...</p>
           <div className="loader">
             <span /><span /><span />
           </div>
-          <p className="processing-hint">Finding you something good</p>
+          <p className="processing-hint">Finding something good for you</p>
         </div>
       </main>
     );
@@ -365,7 +379,7 @@ export default function Home() {
     <main className="results-main">
       <section className="results-section" ref={resultsRef}>
         <div className="results-header">
-          <p className="tagline">here's what I reckon</p>
+          <p className="tagline">here's what I've got for you</p>
           <button className="start-over" onClick={startOver}>Start over</button>
         </div>
 
@@ -385,7 +399,7 @@ export default function Home() {
                 </div>
                 <p className="meal-why">{meal.why}</p>
 
-                {!isExpanded && <p className="tap-hint">Tap for full recipe</p>}
+                {!isExpanded && <p className="tap-hint">tap for the full recipe →</p>}
 
                 {isExpanded && (
                   <div className="meal-expanded">
@@ -479,7 +493,7 @@ export default function Home() {
         </div>
 
         <div className="done-note">
-          <p>That's the lot. If none of these hit, tweak the ingredients above or just start fresh.</p>
+          <p>That's the lot! Not feeling any of these? Tweak above or start fresh - no stress.</p>
         </div>
       </section>
     </main>

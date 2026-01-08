@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fridge Poetry - Mockup</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=Karla:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --cream: #f5f0e6;
+      --paper: #fffef9;
+      --ink: #2c2a26;
+      --pencil: #6b6560;
+      --magnet-blue: #7eb5d6;
+      --magnet-red: #e07b6c;
+      --magnet-yellow: #f0d87a;
+      --magnet-green: #8bc4a0;
+      --tape: rgba(255, 248, 220, 0.7);
+    }
+
+    body {
+      font-family: 'Karla', sans-serif;
+      background: var(--cream);
+      color: var(--ink);
+      min-height: 100dvh;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Paper texture overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      opacity: 0.03;
+      pointer-events: none;
+    }
+
+    .page {
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      position: relative;
+    }
+
+    /* Decorative fridge magnets scattered */
+    .deco-magnet {
+      position: absolute;
+      font-family: 'Caveat', cursive;
+      font-size: 1.1rem;
+      padding: 6px 14px;
+      border-radius: 4px;
+      transform: rotate(var(--rot, 0deg));
+      box-shadow: 2px 3px 6px rgba(0,0,0,0.1);
+      z-index: 0;
+    }
+
+    .deco-magnet:nth-child(1) {
+      top: 8%;
+      left: 8%;
+      background: var(--magnet-blue);
+      --rot: -8deg;
+    }
+    .deco-magnet:nth-child(2) {
+      top: 15%;
+      right: 12%;
+      background: var(--magnet-yellow);
+      --rot: 5deg;
+    }
+    .deco-magnet:nth-child(3) {
+      bottom: 20%;
+      left: 5%;
+      background: var(--magnet-green);
+      --rot: -3deg;
+    }
+    .deco-magnet:nth-child(4) {
+      bottom: 12%;
+      right: 8%;
+      background: var(--magnet-red);
+      --rot: 7deg;
+    }
+
+    .hero {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 36px;
+      text-align: center;
+      max-width: 420px;
+      z-index: 1;
+    }
+
+    .tagline {
+      font-family: 'Caveat', cursive;
+      font-size: 1.4rem;
+      color: var(--pencil);
+      letter-spacing: 0.02em;
+    }
+
+    .prompt {
+      font-family: 'Caveat', cursive;
+      font-size: clamp(2.2rem, 7vw, 3.2rem);
+      font-weight: 600;
+      color: var(--ink);
+      line-height: 1.1;
+      position: relative;
+    }
+
+    /* Hand-drawn underline */
+    .prompt::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 10%;
+      width: 80%;
+      height: 8px;
+      background: url("data:image/svg+xml,%3Csvg width='200' height='10' viewBox='0 0 200 10' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 6 Q25 2, 50 6 T100 6 T150 6 T200 6' stroke='%23e07b6c' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat center;
+      background-size: contain;
+    }
+
+    .voice-btn {
+      width: 140px;
+      height: 140px;
+      border: none;
+      background: var(--paper);
+      cursor: pointer;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.2s ease;
+    }
+
+    .voice-btn:hover {
+      transform: scale(1.05) rotate(-2deg);
+    }
+
+    .voice-btn:active {
+      transform: scale(0.98);
+    }
+
+    /* Hand-drawn circle SVG */
+    .hand-circle {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .hand-circle path {
+      fill: none;
+      stroke: var(--ink);
+      stroke-width: 2.5;
+      stroke-linecap: round;
+      stroke-dasharray: 500;
+      stroke-dashoffset: 500;
+      animation: draw-circle 1s ease forwards;
+    }
+
+    @keyframes draw-circle {
+      to { stroke-dashoffset: 0; }
+    }
+
+    .voice-btn-inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      z-index: 1;
+    }
+
+    .mic-icon {
+      width: 36px;
+      height: 36px;
+      color: var(--ink);
+    }
+
+    .voice-label {
+      font-family: 'Caveat', cursive;
+      font-size: 1.1rem;
+      color: var(--ink);
+    }
+
+    .alt-inputs {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-family: 'Caveat', cursive;
+      font-size: 1.1rem;
+    }
+
+    .alt-btn {
+      background: none;
+      border: none;
+      color: var(--pencil);
+      font-family: inherit;
+      font-size: inherit;
+      cursor: pointer;
+      text-decoration: underline;
+      text-decoration-style: wavy;
+      text-underline-offset: 4px;
+    }
+
+    .alt-btn:hover {
+      color: var(--ink);
+    }
+
+    .alt-divider {
+      color: var(--pencil);
+    }
+
+    .reassurance {
+      font-family: 'Caveat', cursive;
+      font-size: 1rem;
+      color: var(--pencil);
+      opacity: 0.7;
+    }
+
+    /* Results preview section */
+    .results-preview {
+      margin-top: 80px;
+      padding-top: 60px;
+      border-top: 2px dashed var(--pencil);
+      width: 100%;
+      max-width: 500px;
+    }
+
+    .results-label {
+      font-family: 'Caveat', cursive;
+      font-size: 1.2rem;
+      color: var(--pencil);
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .ingredient-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      margin-bottom: 32px;
+    }
+
+    .chip {
+      font-family: 'Caveat', cursive;
+      font-size: 1.1rem;
+      padding: 8px 16px;
+      border-radius: 4px;
+      box-shadow: 2px 3px 6px rgba(0,0,0,0.1);
+      transform: rotate(var(--rot, 0deg));
+      cursor: default;
+    }
+
+    .chip:nth-child(odd) { background: var(--magnet-blue); --rot: -3deg; }
+    .chip:nth-child(even) { background: var(--magnet-yellow); --rot: 2deg; }
+    .chip:nth-child(3n) { background: var(--magnet-green); --rot: -1deg; }
+
+    .recipe-card {
+      background: var(--paper);
+      padding: 28px;
+      position: relative;
+      margin: 0 auto;
+      max-width: 360px;
+      box-shadow: 4px 6px 12px rgba(0,0,0,0.08);
+    }
+
+    /* Tape effect on corners */
+    .recipe-card::before,
+    .recipe-card::after {
+      content: '';
+      position: absolute;
+      width: 60px;
+      height: 24px;
+      background: var(--tape);
+      border: 1px solid rgba(0,0,0,0.05);
+    }
+
+    .recipe-card::before {
+      top: -10px;
+      left: 20px;
+      transform: rotate(-5deg);
+    }
+
+    .recipe-card::after {
+      bottom: -10px;
+      right: 20px;
+      transform: rotate(3deg);
+    }
+
+    .recipe-title {
+      font-family: 'Caveat', cursive;
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .recipe-time {
+      font-family: 'Caveat', cursive;
+      font-size: 1rem;
+      color: var(--pencil);
+      margin-bottom: 12px;
+    }
+
+    .recipe-why {
+      font-family: 'Karla', sans-serif;
+      font-size: 0.95rem;
+      color: var(--pencil);
+      line-height: 1.5;
+    }
+
+    .tap-hint {
+      font-family: 'Caveat', cursive;
+      font-size: 0.95rem;
+      color: var(--pencil);
+      margin-top: 16px;
+      opacity: 0.6;
+    }
+
+    @media (min-width: 600px) {
+      .deco-magnet {
+        font-size: 1.3rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <!-- Scattered decorative magnets -->
+    <span class="deco-magnet">eggs</span>
+    <span class="deco-magnet">pasta</span>
+    <span class="deco-magnet">cheese</span>
+    <span class="deco-magnet">tomato</span>
+
+    <div class="hero">
+      <p class="tagline">just tell me what to cook</p>
+
+      <h1 class="prompt">What's in the fridge?</h1>
+
+      <button class="voice-btn">
+        <svg class="hand-circle" viewBox="0 0 140 140">
+          <path d="M70 10 C110 8, 132 35, 130 70 C132 105, 105 132, 70 130 C35 132, 8 105, 10 70 C8 35, 35 8, 70 10" />
+        </svg>
+        <span class="voice-btn-inner">
+          <svg class="mic-icon" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.91-3c-.49 0-.9.36-.98.85C16.52 14.2 14.47 16 12 16s-4.52-1.8-4.93-4.15c-.08-.49-.49-.85-.98-.85-.61 0-1.09.54-1 1.14.49 3 2.89 5.35 5.91 5.78V20c0 .55.45 1 1 1s1-.45 1-1v-2.08c3.02-.43 5.42-2.78 5.91-5.78.1-.6-.39-1.14-1-1.14z"/>
+          </svg>
+          <span class="voice-label">tap to talk</span>
+        </span>
+      </button>
+
+      <div class="alt-inputs">
+        <button class="alt-btn">snap a photo</button>
+        <span class="alt-divider">or</span>
+        <button class="alt-btn">type it out</button>
+      </div>
+
+      <p class="reassurance">no accounts. photos stay on your device.</p>
+    </div>
+
+    <!-- Results preview -->
+    <div class="results-preview">
+      <p class="results-label">~ results would look like ~</p>
+
+      <div class="ingredient-chips">
+        <span class="chip">leftover rice</span>
+        <span class="chip">eggs</span>
+        <span class="chip">soy sauce</span>
+        <span class="chip">frozen peas</span>
+      </div>
+
+      <div class="recipe-card">
+        <h2 class="recipe-title">Lazy Fried Rice</h2>
+        <p class="recipe-time">10 mins • one pan</p>
+        <p class="recipe-why">The fridge clean-out classic. Chuck it all in, fry it up, done.</p>
+        <p class="tap-hint">tap for full recipe →</p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

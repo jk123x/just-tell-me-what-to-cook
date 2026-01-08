@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Design Mockups - Just Tell Me What To Cook</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Space Grotesk', sans-serif;
+      background: #0f0f0f;
+      color: #f5f5f5;
+      min-height: 100vh;
+      padding: 48px 24px;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      font-size: 2rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      color: #888;
+      font-size: 1rem;
+      margin-bottom: 48px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+    }
+
+    .card {
+      display: block;
+      background: #1a1a1a;
+      border-radius: 16px;
+      padding: 28px;
+      text-decoration: none;
+      color: inherit;
+      transition: all 0.3s ease;
+      border: 1px solid #2a2a2a;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      border-color: #444;
+      background: #222;
+    }
+
+    .card-number {
+      font-size: 0.75rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #666;
+      margin-bottom: 12px;
+    }
+
+    .card-title {
+      font-size: 1.4rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .card-desc {
+      font-size: 0.9rem;
+      color: #888;
+      line-height: 1.5;
+    }
+
+    .card-palette {
+      display: flex;
+      gap: 6px;
+      margin-top: 20px;
+    }
+
+    .swatch {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      border: 2px solid #333;
+    }
+
+    /* Individual card accents */
+    .card-1:hover { border-color: #7eb5d6; }
+    .card-2:hover { border-color: #c5c4c2; }
+    .card-3:hover { border-color: #ff6b35; }
+    .card-4:hover { border-color: #c9a962; }
+    .card-5:hover { border-color: #d4a84b; }
+    .card-6:hover { border-color: #7d9b76; }
+
+    .footer {
+      margin-top: 64px;
+      padding-top: 32px;
+      border-top: 1px solid #2a2a2a;
+      text-align: center;
+      color: #666;
+      font-size: 0.85rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Design Mockups</h1>
+    <p class="subtitle">6 visual directions for "Just Tell Me What To Cook"</p>
+
+    <div class="grid">
+      <a href="1-fridge-poetry.html" class="card card-1">
+        <p class="card-number">01</p>
+        <h2 class="card-title">Fridge Poetry</h2>
+        <p class="card-desc">Hand-drawn collage aesthetic. Zine vibes, fridge magnets, paper texture, wobbly charm.</p>
+        <div class="card-palette">
+          <span class="swatch" style="background: #f5f0e6;"></span>
+          <span class="swatch" style="background: #7eb5d6;"></span>
+          <span class="swatch" style="background: #e07b6c;"></span>
+          <span class="swatch" style="background: #f0d87a;"></span>
+        </div>
+      </a>
+
+      <a href="2-calm-kitchen.html" class="card card-2">
+        <p class="card-number">02</p>
+        <h2 class="card-title">Calm Kitchen</h2>
+        <p class="card-desc">Ultra-minimal zen. Muji/Aesop style, maximum whitespace, thin strokes, floating content.</p>
+        <div class="card-palette">
+          <span class="swatch" style="background: #faf9f7;"></span>
+          <span class="swatch" style="background: #1a1a18;"></span>
+          <span class="swatch" style="background: #8a8885;"></span>
+          <span class="swatch" style="background: #c5c4c2;"></span>
+        </div>
+      </a>
+
+      <a href="3-kitchen-chaos.html" class="card card-3">
+        <p class="card-number">03</p>
+        <h2 class="card-title">Kitchen Chaos</h2>
+        <p class="card-desc">Bold color blocking, joyful energy. Springy animations, rainbow chips, big playful type.</p>
+        <div class="card-palette">
+          <span class="swatch" style="background: #fff8e7;"></span>
+          <span class="swatch" style="background: #ff6b35;"></span>
+          <span class="swatch" style="background: #a855f7;"></span>
+          <span class="swatch" style="background: #6ee7b7;"></span>
+        </div>
+      </a>
+
+      <a href="4-dinner-party.html" class="card card-4">
+        <p class="card-number">04</p>
+        <h2 class="card-title">Dinner Party</h2>
+        <p class="card-desc">Editorial cookbook warmth. Rich cream/gold/terracotta, large serif headlines, premium feel.</p>
+        <div class="card-palette">
+          <span class="swatch" style="background: #f8f4ed;"></span>
+          <span class="swatch" style="background: #c9a962;"></span>
+          <span class="swatch" style="background: #c17f59;"></span>
+          <span class="swatch" style="background: #2d2926;"></span>
+        </div>
+      </a>
+
+      <a href="5-midnight-snack.html" class="card card-5">
+        <p class="card-number">05</p>
+        <h2 class="card-title">Midnight Snack</h2>
+        <p class="card-desc">Warm dark mode. Espresso/charcoal tones, golden glow accents, cozy late-night vibe.</p>
+        <div class="card-palette">
+          <span class="swatch" style="background: #1c1a17;"></span>
+          <span class="swatch" style="background: #252320;"></span>
+          <span class="swatch" style="background: #d4a84b;"></span>
+          <span class="swatch" style="background: #f5efe6;"></span>
+        </div>
+      </a>
+
+      <a href="6-fresh-market.html" class="card card-6">
+        <p class="card-number">06</p>
+        <h2 class="card-title">Fresh Market</h2>
+        <p class="card-desc">Organic farmer's market feel. Earthy sage and terracotta, botanical accents, produce stickers.</p>
+        <div class="card-palette">
+          <span class="swatch" style="background: #faf8f4;"></span>
+          <span class="swatch" style="background: #7d9b76;"></span>
+          <span class="swatch" style="background: #c67d5a;"></span>
+          <span class="swatch" style="background: #e8ede6;"></span>
+        </div>
+      </a>
+    </div>
+
+    <p class="footer">Click any card to view the full mockup</p>
+  </div>
+</body>
+</html>

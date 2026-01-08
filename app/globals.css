@@ -1,11 +1,15 @@
 :root {
-  --ink: #1b1a17;
-  --ink-muted: #5a5754;
-  --paper: #faf6ef;
-  --warm: #f5ebe0;
-  --warmest: #efe4d4;
-  --sun: #f0d19a;
-  --tomato: #e07553;
+  --bg: #faf8f4;
+  --bg-soft: #f5f0e6;
+  --bg-sage: #e8ede6;
+  --ink: #2d3a2e;
+  --ink-muted: #5c6b5d;
+  --ink-faint: #8a9a8b;
+  --sage: #7d9b76;
+  --sage-light: #a8c4a0;
+  --sage-faint: #d4e4d0;
+  --terracotta: #c67d5a;
+  --terracotta-light: #e8a888;
   --radius: 999px;
 }
 
@@ -21,9 +25,10 @@ html, body {
 
 body {
   font-family: var(--font-body), system-ui, sans-serif;
+  font-weight: 300;
   color: var(--ink);
-  background: var(--paper);
-  line-height: 1.5;
+  background: var(--bg);
+  line-height: 1.6;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -48,6 +53,28 @@ p {
   align-items: center;
   justify-content: center;
   padding: 24px;
+  position: relative;
+  overflow: hidden;
+}
+
+.botanical-accent {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  width: 100px;
+  height: 100px;
+  opacity: 0.12;
+  pointer-events: none;
+  color: var(--sage);
+}
+
+@media (min-width: 600px) {
+  .botanical-accent {
+    width: 140px;
+    height: 140px;
+    top: 32px;
+    right: 32px;
+  }
 }
 
 .voice-hero {
@@ -62,8 +89,9 @@ p {
 
 .tagline {
   font-family: var(--font-display), Georgia, serif;
-  font-size: 1.1rem;
-  color: var(--ink-muted);
+  font-size: 1rem;
+  font-style: italic;
+  color: var(--sage);
   letter-spacing: 0.02em;
 }
 
@@ -92,20 +120,38 @@ p {
   width: 140px;
   height: 140px;
   border-radius: 50%;
-  border: none;
-  background: var(--ink);
-  color: white;
+  border: 2px solid var(--sage);
+  background: var(--bg);
+  color: var(--sage);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  gap: 10px;
+  transition: all 0.3s ease;
   position: relative;
 }
 
+.voice-button::before {
+  content: '';
+  position: absolute;
+  inset: -16px;
+  background: var(--bg-sage);
+  border-radius: 50% 45% 55% 48% / 48% 52% 45% 50%;
+  z-index: -1;
+  opacity: 0.5;
+  transition: all 0.4s ease;
+}
+
 .voice-button:hover {
-  transform: scale(1.03);
+  background: var(--sage);
+  border-color: var(--sage);
+  color: white;
+}
+
+.voice-button:hover::before {
+  transform: scale(1.1) rotate(10deg);
+  opacity: 0.7;
 }
 
 .voice-button:active {
@@ -113,7 +159,14 @@ p {
 }
 
 .voice-button.recording {
-  background: var(--tomato);
+  background: var(--terracotta);
+  border-color: var(--terracotta);
+  color: white;
+}
+
+.voice-button.recording::before {
+  background: var(--terracotta-light);
+  opacity: 0.4;
 }
 
 .mic-icon {
@@ -123,21 +176,26 @@ p {
 }
 
 .voice-label {
+  font-family: var(--font-display), Georgia, serif;
+  font-style: italic;
   font-size: 0.85rem;
-  opacity: 0.9;
 }
 
 .pulse-ring {
   position: absolute;
   inset: -8px;
   border-radius: 50%;
-  border: 2px solid var(--tomato);
+  border: 2px solid var(--terracotta);
   animation: pulse 1.5s ease-out infinite;
   pointer-events: none;
 }
 
 .pulse-ring.delay {
   animation-delay: 0.4s;
+}
+
+.voice-button.recording .pulse-ring {
+  border-color: var(--terracotta-light);
 }
 
 @keyframes pulse {
@@ -163,18 +221,19 @@ p {
   background: none;
   border: none;
   color: var(--ink-muted);
-  text-decoration: underline;
-  text-underline-offset: 4px;
+  font-family: var(--font-display), Georgia, serif;
+  font-style: italic;
   font-size: 0.95rem;
   padding: 4px;
+  transition: color 0.3s ease;
 }
 
 .alt-button:hover {
-  color: var(--ink);
+  color: var(--terracotta);
 }
 
 .alt-divider {
-  color: var(--ink-muted);
+  color: var(--sage-light);
   font-size: 0.85rem;
 }
 
@@ -196,7 +255,7 @@ p {
 }
 
 .error-message {
-  color: var(--tomato);
+  color: var(--terracotta);
   font-size: 0.95rem;
 }
 
@@ -205,9 +264,10 @@ p {
   display: flex;
   flex-direction: column;
   gap: 16px;
-  background: var(--warm);
+  background: var(--bg-sage);
   padding: 24px;
-  border-radius: 24px;
+  border-radius: 20px;
+  border: 1px solid var(--sage-faint);
 }
 
 .file-picker {
@@ -215,10 +275,15 @@ p {
   align-items: center;
   justify-content: center;
   padding: 14px 20px;
-  border-radius: var(--radius);
-  background: var(--ink);
+  border-radius: 8px;
+  background: var(--sage);
   color: white;
   cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.file-picker:hover {
+  background: var(--ink);
 }
 
 .file-picker input {
@@ -239,13 +304,19 @@ p {
 
 .input-panel textarea {
   width: 100%;
-  border-radius: 16px;
-  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  border: 1px solid var(--sage-light);
   padding: 14px 16px;
   font-size: 1rem;
   font-family: inherit;
   resize: none;
-  background: white;
+  background: var(--bg);
+  transition: border-color 0.3s ease;
+}
+
+.input-panel textarea:focus {
+  outline: none;
+  border-color: var(--sage);
 }
 
 .panel-actions {
@@ -255,10 +326,11 @@ p {
 
 .action-button {
   padding: 12px 24px;
-  border-radius: var(--radius);
+  border-radius: 8px;
   border: none;
   font-size: 1rem;
-  transition: transform 0.15s ease;
+  font-weight: 500;
+  transition: all 0.2s ease;
 }
 
 .action-button:hover:not(:disabled) {
@@ -271,13 +343,21 @@ p {
 }
 
 .action-button.primary {
-  background: var(--ink);
+  background: var(--sage);
   color: white;
+}
+
+.action-button.primary:hover:not(:disabled) {
+  background: var(--ink);
 }
 
 .action-button.ghost {
   background: transparent;
   color: var(--ink-muted);
+}
+
+.action-button.ghost:hover {
+  color: var(--ink);
 }
 
 .loader {
@@ -286,9 +366,9 @@ p {
 }
 
 .loader span {
-  width: 12px;
-  height: 12px;
-  background: var(--ink);
+  width: 10px;
+  height: 10px;
+  background: var(--sage);
   border-radius: 50%;
   animation: bounce 1s ease infinite;
 }
@@ -304,6 +384,19 @@ p {
 .results-main {
   min-height: 100dvh;
   padding: 32px 20px 64px;
+  background: var(--bg-sage);
+  position: relative;
+}
+
+.results-main::before {
+  content: '';
+  position: absolute;
+  top: -30px;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background: var(--bg-sage);
+  clip-path: ellipse(55% 100% at 50% 100%);
 }
 
 .results-section {
@@ -324,9 +417,14 @@ p {
   background: none;
   border: none;
   color: var(--ink-muted);
-  text-decoration: underline;
-  text-underline-offset: 4px;
+  font-family: var(--font-display), Georgia, serif;
+  font-style: italic;
   font-size: 0.9rem;
+  transition: color 0.2s ease;
+}
+
+.start-over:hover {
+  color: var(--terracotta);
 }
 
 .meals-list {
@@ -336,13 +434,34 @@ p {
 }
 
 .meal-card {
-  background: var(--warm);
-  border-radius: 24px;
+  background: var(--bg);
+  border-radius: 16px;
   padding: 28px;
   display: flex;
   flex-direction: column;
   gap: 16px;
   animation: slide-up 0.4s ease both;
+  border: 1px solid var(--sage-faint);
+  position: relative;
+}
+
+.meal-card::after {
+  content: '';
+  position: absolute;
+  top: -8px;
+  right: 24px;
+  width: 16px;
+  height: 16px;
+  background: var(--sage);
+  border-radius: 50%;
+}
+
+.meal-card:nth-child(2)::after {
+  background: var(--terracotta);
+}
+
+.meal-card:nth-child(3)::after {
+  background: var(--sage-light);
 }
 
 @keyframes slide-up {
@@ -377,20 +496,28 @@ p {
 }
 
 .meal-time {
-  font-size: 0.85rem;
-  color: var(--ink-muted);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--sage);
+  padding: 4px 10px;
+  background: var(--bg-sage);
+  border-radius: 4px;
   white-space: nowrap;
 }
 
 .meal-why {
+  font-family: var(--font-display), Georgia, serif;
+  font-style: italic;
   color: var(--ink-muted);
-  font-size: 0.95rem;
+  font-size: 1rem;
+  line-height: 1.5;
 }
 
 .tap-hint {
-  font-size: 0.8rem;
-  color: var(--ink-muted);
-  opacity: 0.6;
+  font-size: 0.85rem;
+  color: var(--terracotta);
   margin-top: 8px;
 }
 
@@ -408,9 +535,9 @@ p {
 }
 
 .meal-detail {
-  background: rgba(255, 255, 255, 0.5);
+  background: var(--bg-sage);
   padding: 16px;
-  border-radius: 16px;
+  border-radius: 12px;
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -427,9 +554,9 @@ p {
 }
 
 .meal-tips {
-  background: rgba(255, 255, 255, 0.5);
+  background: var(--sage-faint);
   padding: 16px;
-  border-radius: 16px;
+  border-radius: 12px;
 }
 
 .meal-tips strong {
@@ -501,9 +628,10 @@ p {
 }
 
 .refine-block {
-  background: var(--warmest);
-  border-radius: 20px;
+  background: var(--bg);
+  border-radius: 16px;
   padding: 16px 20px;
+  border: 1px solid var(--sage-faint);
 }
 
 .refine-block summary {
@@ -540,10 +668,27 @@ p {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 6px 12px;
-  background: white;
-  border-radius: var(--radius);
+  padding: 8px 14px;
+  background: var(--bg-soft);
+  border-radius: 6px;
   font-size: 0.9rem;
+  border: 1px solid var(--sage-light);
+  position: relative;
+}
+
+.chip::before {
+  content: '';
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--terracotta);
+}
+
+.chip:nth-child(even)::before {
+  background: var(--sage);
 }
 
 .chip button {
@@ -564,17 +709,30 @@ p {
 .add-ingredient input {
   flex: 1;
   padding: 8px 12px;
-  border-radius: var(--radius);
-  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 6px;
+  border: 1px solid var(--sage-light);
   font-size: 0.9rem;
+  background: var(--bg);
+}
+
+.add-ingredient input:focus {
+  outline: none;
+  border-color: var(--sage);
 }
 
 .add-ingredient button {
   padding: 8px 16px;
-  border-radius: var(--radius);
-  border: 1px solid var(--ink);
+  border-radius: 6px;
+  border: 1px solid var(--sage);
   background: transparent;
   font-size: 0.9rem;
+  color: var(--sage);
+  transition: all 0.2s ease;
+}
+
+.add-ingredient button:hover {
+  background: var(--sage);
+  color: white;
 }
 
 .energy-row {
@@ -585,16 +743,21 @@ p {
 
 .energy-chip {
   padding: 8px 14px;
-  border-radius: var(--radius);
-  border: 1px solid rgba(0, 0, 0, 0.15);
-  background: white;
+  border-radius: 6px;
+  border: 1px solid var(--sage-light);
+  background: var(--bg);
   font-size: 0.85rem;
-  transition: all 0.15s ease;
+  transition: all 0.2s ease;
+}
+
+.energy-chip:hover {
+  border-color: var(--sage);
 }
 
 .energy-chip.active {
-  background: var(--sun);
-  border-color: var(--sun);
+  background: var(--sage);
+  border-color: var(--sage);
+  color: white;
 }
 
 .done-note {

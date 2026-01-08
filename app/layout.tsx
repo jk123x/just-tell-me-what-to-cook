@@ -1,14 +1,15 @@
 import type { Metadata } from "next";
-import { Fraunces, Space_Grotesk } from "next/font/google";
+import { Lora, Nunito_Sans } from "next/font/google";
 import "./globals.css";
 
-const display = Fraunces({
+const display = Lora({
   subsets: ["latin"],
   variable: "--font-display",
 });
 
-const body = Space_Grotesk({
+const body = Nunito_Sans({
   subsets: ["latin"],
+  weight: ["300", "400", "500", "600"],
   variable: "--font-body",
 });
 
@@ -17,7 +18,7 @@ export const metadata: Metadata = {
   description:
     "Snap your supplies or say them out loud, then get a few doable meals that match your energy.",
   applicationName: "Just Tell Me What To Cook",
-  themeColor: "#f7f3ea",
+  themeColor: "#faf8f4",
   appleWebApp: {
     capable: true,
     title: "Just Tell Me What To Cook",
